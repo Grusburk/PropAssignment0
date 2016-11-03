@@ -8,6 +8,7 @@ public class Lexeme {
 		this.value = value;
 		this.token = token;
 		System.out.println("Lexeme:" + value + " " + token);
+		System.out.println("!");
 	}
 
 	public Object value() {
