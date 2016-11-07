@@ -32,59 +32,46 @@ public class Tokenizer implements ITokenizer {
 		removeWhiteSpace();
 		char inputChar = scanner.current();
 		if (inputChar >= 'a' && inputChar <='z') {
-			current = produceIdentifier(inputChar);
+			current = new Lexeme(inputChar,Token.IDENT);
 		}else if(inputChar >= '0' && inputChar <='9'){
-			current = produceInt(inputChar);
+			current = new Lexeme(inputChar, Token.INT_LIT);
 		}else{
 			switch (inputChar) {
+				case '{':
+					current = new Lexeme('{', Token.LEFT_CURLY);
+					break;
+				case '}':
+					current = new Lexeme('}', Token.RIGHT_CURLY);
+					break;
+				case '(':
+					current = new Lexeme('(', Token.LEFT_PAREN);
+					break;
+				case ')':
+					current = new Lexeme(')', Token.RIGHT_PAREN);
+					break;
+				case ';':
+					current = new Lexeme(';', Token.SEMICOLON);
+					break;
 				case '+':
-					current = produceAddOp(inputChar);
+					current = new Lexeme('+',Token.ADD_OP);
 					break;
 				case '=':
-					current = produceAssign(inputChar);
+					current = new Lexeme('=',Token.ASSIGN_OP);
 					break;
 				case '-':
-					current = produceSubOp(inputChar);
+					current = new Lexeme('-',Token.SUB_OP);
 					break;
 				case '*':
-					current = produceMultOp(inputChar);
+					current = new Lexeme('*',Token.MULT_OP);
 					break;
 				case '/':
-					current = produceDivOp(inputChar);
+					current = new Lexeme('/',Token.DIV_OP);
 					break;
 				default:
 					break;
 			}
 		}
     }
-
-	private Lexeme produceInt(char inputChar) {
-		return new Lexeme(0,Token.INT_LIT);
-	}
-
-	private Lexeme produceAddOp(char inputChar) {
-		return new Lexeme(0,Token.ADD_OP);
-	}
-
-	private Lexeme produceMultOp(char inputChar) {
-		return new Lexeme(0,Token.MULT_OP);
-	}
-
-	private Lexeme produceSubOp(char inputChar) {
-		return new Lexeme(0,Token.SUB_OP);
-	}
-
-	private Lexeme produceDivOp(char inputChar) {
-		return new Lexeme(0,Token.DIV_OP);
-	}
-
-	private Lexeme produceIdentifier(char inputChar) {
-		return new Lexeme(0,Token.IDENT);
-	}
-
-	private Lexeme produceAssign(char input){
-		return new Lexeme(0,Token.ASSIGN_OP);
-	}
 
     @Override
     public void close() throws IOException {
