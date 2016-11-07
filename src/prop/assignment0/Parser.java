@@ -28,10 +28,10 @@ public class Parser implements IParser {
 	
 	private INode parseText(){
 		//while(!EOF){
-			//senteces.add(parseSentence());
+			//sentences.add(parseSentence());
 			//tokenizer.moveNext();
 		//}
-		// return new textNode(senteces);
+		// return new textNode(sentences);
 		return null;
 	}
 	
