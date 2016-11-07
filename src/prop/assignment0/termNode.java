@@ -1,9 +1,9 @@
-package prop.assignment0;
+    package prop.assignment0;
 
 /**
  * Created by matt on 2016-11-02.
  */
-public class Node implements INode {
+public class termNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
         return null;
