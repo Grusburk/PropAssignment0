@@ -29,7 +29,6 @@ public class Tokenizer implements ITokenizer {
 
     @Override
     public void moveNext() throws IOException, TokenizerException {
-		removeWhiteSpace();
 		char inputChar = scanner.current();
 		if (inputChar >= 'a' && inputChar <='z') {
 			current = new Lexeme(inputChar,Token.IDENT);
@@ -67,6 +66,9 @@ public class Tokenizer implements ITokenizer {
 				case '/':
 					current = new Lexeme('/',Token.DIV_OP);
 					break;
+				case ' ':
+					scanner.moveNext();
+					break;
 				default:
 					break;
 			}
@@ -77,10 +79,4 @@ public class Tokenizer implements ITokenizer {
     public void close() throws IOException {
 
     }
-	
-	private void removeWhiteSpace () throws IOException {
-		while (scanner.current() == WHITESPACE){
-			scanner.moveNext();
-		}
-	}
 }
