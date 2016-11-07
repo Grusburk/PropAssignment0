@@ -2,8 +2,6 @@ package prop.assignment0;
 
 import java.io.IOException;
 
-import static java.awt.font.GlyphMetrics.WHITESPACE;
-
 /**
  * Created by matt on 2016-11-02.
  */
@@ -70,7 +68,7 @@ public class Tokenizer implements ITokenizer {
 					scanner.moveNext();
 					break;
 				default:
-					break;
+					throw new TokenizerException("Wrong input");
 			}
 		}
     }
