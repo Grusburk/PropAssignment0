@@ -4,6 +4,9 @@ package prop.assignment0;
  * Created by matt on 2016-11-02.
  */
 public class ExprNode implements INode {
+    private TermNode leftNode;
+    private ExprNode rightNode;
+
     @Override
     public Object evaluate(Object[] args) throws Exception {
         return null;
