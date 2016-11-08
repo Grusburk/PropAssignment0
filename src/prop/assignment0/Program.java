@@ -6,12 +6,6 @@ import java.io.OutputStreamWriter;
 
 public class Program {
 	public static void main(String[] args) throws IOException, TokenizerException {
-//		Tokenizer tokenizer = new Tokenizer();
-//		tokenizer.open(String.valueOf(Program.class.getResource("program1.txt")));
-//		while (tokenizer.current().token() != Token.EOF)
-//			System.out.println(tokenizer.current());
-//		tokenizer.moveNext();
-
 		String inputFileName = null;
 		String outputFileName = null;
 		IParser parser = null;

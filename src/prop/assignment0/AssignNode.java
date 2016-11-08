@@ -24,6 +24,7 @@ public class AssignNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+        builder.append("\nAssignNode");
         leftNode.buildString(builder, tabs);
         tabs++;
         // köra egen stringbuilder
