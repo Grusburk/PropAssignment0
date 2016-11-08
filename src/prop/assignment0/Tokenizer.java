@@ -25,14 +25,28 @@ public class Tokenizer implements ITokenizer {
         return current;
     }
 
+    public void skipWhiteSpace() throws IOException {
+		while (Character.isWhitespace(scanner.current())){
+			scanner.moveNext();
+		}
+	}
+
     @Override
     public void moveNext() throws IOException, TokenizerException {
+		skipWhiteSpace();
 		char inputChar = scanner.current();
+		setLexeme(inputChar);
+		scanner.moveNext();
+    }
+
+	private void setLexeme(char inputChar) throws IOException, TokenizerException {
 		if (inputChar >= 'a' && inputChar <='z') {
-			current = new Lexeme(inputChar,Token.IDENT);
+			current = new Lexeme(inputChar, Token.IDENT);
 		}else if(inputChar >= '0' && inputChar <='9'){
 			current = new Lexeme(inputChar, Token.INT_LIT);
-		}else{
+		}else if (inputChar == Scanner.EOF) {
+			current = new Lexeme(inputChar, Token.EOF);
+		} else{
 			switch (inputChar) {
 				case '{':
 					current = new Lexeme('{', Token.LEFT_CURLY);
@@ -64,16 +78,13 @@ public class Tokenizer implements ITokenizer {
 				case '/':
 					current = new Lexeme('/',Token.DIV_OP);
 					break;
-				case ' ':
-					scanner.moveNext();
-					break;
 				default:
-					throw new TokenizerException("Wrong input");
+					throw new TokenizerException("Wrong input " + inputChar);
 			}
 		}
-    }
+	}
 
-    @Override
+	@Override
     public void close() throws IOException {
 
     }
