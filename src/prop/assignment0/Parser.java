@@ -25,25 +25,51 @@ public class Parser implements IParser {
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
 //        return parseText;
-        return null;
+		//
+		AssignNode rootNode = new AssignNode();
+		rootNode.setLeftNode(new AssignNode(tokenizer.current()));
+		tokenizer.moveNext();
+		rootNode.setValue(tokenizer.current());
+
+		// while loop, kolla typ(tokenizer.current().token(), assigna vänster, value eller höger beroende på typ och regel.
+
+		//tokenizer.moveNext();
+		//rootNode.setRightNode(new ExprNode(tokenizer.current()));
+
+		switch (tokenizer.current().token()) {
+			case LEFT_CURLY:
+			case RIGHT_CURLY:
+
+				break;
+			case ASSIGN_OP:
+			case SEMICOLON:
+			case IDENT:
+
+				break;
+			case ADD_OP:
+			case SUB_OP:
+
+				break;
+			case DIV_OP:
+			case MULT_OP:
+
+				break;
+			case LEFT_PAREN:
+			case RIGHT_PAREN:
+			case INT_LIT:
+
+				break;
+		}
+        return rootNode;
     }
-	
-	private INode parseText(){
-		//while(!EOF){
-			//senteces.add(parseSentence());
-			//tokenizer.moveNext();
-		//}
-		// return new textNode(senteces);
-		return null;
-	}
-	
+
 	private INode constructAssignNode() {
 		AssignNode assignNode = new AssignNode();
         return null;
 	}
 	
 	private INode constructBlockNode() {
-		BlockNode blockNode = new BlockNode();
+		//BlockNode blockNode = new BlockNode();
         return null;
 	}
 	
