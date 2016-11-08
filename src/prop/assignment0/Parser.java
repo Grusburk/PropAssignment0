@@ -10,6 +10,7 @@ public class Parser implements IParser {
 	
 	private Tokenizer tokenizer;
 	private ArrayList<INode> senteces = new ArrayList<>();
+
 	public Parser (){
 		
 	}
@@ -18,6 +19,7 @@ public class Parser implements IParser {
     public void open(String fileName) throws IOException, TokenizerException {
 		tokenizer = new Tokenizer();
 		tokenizer.open(fileName);
+		tokenizer.moveNext();
     }
 
     @Override
@@ -35,19 +37,33 @@ public class Parser implements IParser {
 		return null;
 	}
 	
-	private INode parseSentence() {
-		//NodeClass nodeClass = parseXXNode
+	private INode constructAssignNode() {
+		AssignNode assignNode = new AssignNode();
         return null;
 	}
 	
-	private INode parseXXNode() {
-	//	determinerNode dn = parseDeterminer();
+	private INode constructBlockNode() {
+		BlockNode blockNode = new BlockNode();
         return null;
 	}
 	
-	private INode parseDeterminer(){
-		// if(tokenizer.current().token == Token.Determiner;
-//		return new determinerNode(t.current());
+	private INode constructExprNode(){
+		ExprNode exprNode = new ExprNode();
+		return null;
+	}
+
+	private INode constructFactorNode(){
+		FactorNode factorNode = new FactorNode();
+		return null;
+	}
+
+	private INode constructStmtsNode(){
+		StmtsNode stmtsNode = new StmtsNode();
+		return null;
+	}
+
+	private INode constructTermNode(){
+		TermNode termNode = new TermNode();
 		return null;
 	}
 
