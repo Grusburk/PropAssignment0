@@ -7,18 +7,33 @@ public class TermNode implements INode {
 
     private FactorNode leftNode;
     private TermNode rightNode;
-    private Lexeme value;
+    public Lexeme lexeme;
+
+    public TermNode() {
+
+    }
+
     public TermNode(Lexeme current) {
-        value = current;
+        lexeme = current;
     }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+        return lexeme.value();
     }
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+        builder.append("TermNode\n");
+        System.out.println(leftNode);
+        leftNode.buildString(builder, tabs);
+        builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
+//        leftNode.buildString(builder, tabs);
+//        tabs++;
+//        builder.append(leftNode.lexeme);
+//        tabs--;
+//        rightNode.buildString(builder, tabs);
+//        builder.append(rightNode.lexeme);
 
     }
 
@@ -38,11 +53,11 @@ public class TermNode implements INode {
         this.rightNode = rightNode;
     }
 
-    public Lexeme getValue() {
-        return value;
+    public Lexeme getLexeme() {
+        return lexeme;
     }
 
-    public void setValue(Lexeme value) {
-        this.value = value;
+    public void setLexeme(Lexeme lexeme) {
+        this.lexeme = lexeme;
     }
 }
