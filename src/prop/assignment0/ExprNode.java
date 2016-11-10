@@ -6,20 +6,27 @@ package prop.assignment0;
 public class ExprNode implements INode {
     private TermNode leftNode;
     private ExprNode rightNode;
-    private Lexeme value;
+    public Lexeme lexeme;
+
+    public ExprNode() {
+
+    }
 
     public ExprNode(Lexeme current) {
-        value = current;
+        lexeme = current;
     }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+        return lexeme.value();
     }
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
-
+        builder.append("ExprNode\n");
+        leftNode.buildString(builder, tabs);
+        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+        builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
     }
 
     public TermNode getLeftNode() {
@@ -38,11 +45,11 @@ public class ExprNode implements INode {
         this.rightNode = rightNode;
     }
 
-    public Lexeme getValue() {
-        return value;
+    public Lexeme getLexeme() {
+        return lexeme;
     }
 
-    public void setValue(Lexeme value) {
-        this.value = value;
+    public void setLexeme(Lexeme lexeme) {
+        this.lexeme = lexeme;
     }
 }
