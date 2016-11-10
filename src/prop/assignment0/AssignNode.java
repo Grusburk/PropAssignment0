@@ -7,29 +7,49 @@ public class AssignNode implements INode {
 
     private AssignNode leftNode;
     private ExprNode rightNode;
-    private Lexeme value;
+    private Lexeme lexeme;
 
     public AssignNode() {
     }
 
     public AssignNode(Lexeme current) {
-        value = current;
+        lexeme = current;
     }
 
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+        return lexeme.value();
     }
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
-        builder.append("\nAssignNode");
-        leftNode.buildString(builder, tabs);
+        builder.append("AssignmentNode\n");
         tabs++;
-        // köra egen stringbuilder
-        tabs--;
+        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+        tabby(builder, tabs);
+        builder.append(leftNode.lexeme.token() + " " + leftNode.lexeme.value() + "\n");
+        tabby(builder, tabs);
         rightNode.buildString(builder, tabs);
+        tabby(builder, tabs);
+//        tabs++;
+//        builder.append(rightNode.lexeme.token() + "" + leftNode.lexeme.lexeme());
+
+//        builder.append(lexeme.token() + " " + lexeme.lexeme()+ "\n hejhej");
+
+
+//        leftNode.buildString(builder, tabs);
+//        tabs++;
+//        builder.append(leftNode.lexeme);
+//        tabs--;
+//        rightNode.buildString(builder, tabs);
+//        builder.append(rightNode.lexeme);
+    }
+
+    private void tabby(StringBuilder builder, int tabs) {
+        for (int i = 0; i < tabs; i++) {
+            builder.append("    ");
+        }
     }
 
     public INode getLeftNode() {
@@ -48,11 +68,11 @@ public class AssignNode implements INode {
         this.rightNode = rightNode;
     }
 
-    public Lexeme getValue() {
-        return value;
+    public Lexeme getLexeme() {
+        return lexeme;
     }
 
-    public void setValue(Lexeme value) {
-        this.value = value;
+    public void setLexeme(Lexeme lexeme) {
+        this.lexeme = lexeme;
     }
 }
