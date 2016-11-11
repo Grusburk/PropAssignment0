@@ -78,6 +78,8 @@ public class Parser implements IParser {
 		tokenizer.moveNext();
 		exprNode.setRightNode(new ExprNode(tokenizer.current()));
 		tokenizer.moveNext();
+		exprNode.getRightNode().setRightNode(this.exprNode);
+		tokenizer.moveNext();
 		constructTermNode();
 		exprNode.setLeftNode(termNode);
 
@@ -96,13 +98,12 @@ public class Parser implements IParser {
 
 	private INode constructFactorNode() throws IOException, TokenizerException {
 		factorNode = new FactorNode(tokenizer.current());
-		tokenizer.moveNext();
 		factorNode.setLexeme(tokenizer.current());
-		factorNode.setLeftNode(factorNode);
+		tokenizer.moveNext();
+		factorNode.setLeftNode(tokenizer.current());
 //		System.out.println(factorNode.getLeftNode());
 		tokenizer.moveNext();
-		factorNode.setLexeme(tokenizer.current());
-		factorNode.setRightNode(factorNode);
+		factorNode.setRightNode(exprNode.getRightNode());
 //		System.out.println(factorNode.getRightNode());
 		return factorNode;
 	}

@@ -4,27 +4,27 @@
  * Created by matt on 2016-11-02.
  */
 public class FactorNode implements INode {
-    private FactorNode leftNode;
-    private FactorNode rightNode;
+    private Lexeme leftNode;
+    private ExprNode rightNode;
     public Lexeme lexeme;
 
     public FactorNode(Lexeme current) {
 
     }
 
-    public FactorNode getLeftNode() {
+    public Lexeme getLeftNode() {
         return leftNode;
     }
 
-    public void setLeftNode(FactorNode leftNode) {
+    public void setLeftNode(Lexeme leftNode) {
         this.leftNode = leftNode;
     }
 
-    public FactorNode getRightNode() {
+    public ExprNode getRightNode() {
         return rightNode;
     }
 
-    public void setRightNode(FactorNode rightNode) {
+    public void setRightNode(ExprNode rightNode) {
         this.rightNode = rightNode;
     }
 
@@ -44,9 +44,10 @@ public class FactorNode implements INode {
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("FactorNode\n");
-//        System.out.println(rightNode.lexeme);
-        builder.append(leftNode.lexeme.token() + " " + leftNode.lexeme.value() + "\n");
+        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+        builder.append(leftNode.token() + " " + leftNode.value() + "\n");
         builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
+//        rightNode.buildString(builder, tabs);
 
 
 //        rightNode.buildString(builder, tabs);
