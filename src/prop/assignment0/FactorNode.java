@@ -12,6 +12,10 @@ public class FactorNode implements INode {
 
     }
 
+    public FactorNode() {
+
+    }
+
     public Lexeme getLeftNode() {
         return leftNode;
     }
@@ -44,11 +48,11 @@ public class FactorNode implements INode {
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("FactorNode\n");
-        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
-        builder.append(leftNode.token() + " " + leftNode.value() + "\n");
-        builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
-//        rightNode.buildString(builder, tabs);
+        System.out.println(rightNode);
 
+//        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+//        builder.append(leftNode.token() + " " + leftNode.value() + "\n");
+//        rightNode.buildString(builder, tabs);
 
 //        rightNode.buildString(builder, tabs);
 //        leftNode.buildString(builder, tabs);

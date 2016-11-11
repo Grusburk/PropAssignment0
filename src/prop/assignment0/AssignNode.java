@@ -5,8 +5,7 @@
  */
 public class AssignNode implements INode {
 
-    private AssignNode leftNode;
-    private ExprNode rightNode;
+    private INode childNode;
     private Lexeme lexeme;
 
     public AssignNode() {
@@ -26,12 +25,15 @@ public class AssignNode implements INode {
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("AssignmentNode\n");
         tabs++;
-        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
-        tabby(builder, tabs);
-        builder.append(leftNode.lexeme.token() + " " + leftNode.lexeme.value() + "\n");
-        tabby(builder, tabs);
-        rightNode.buildString(builder, tabs);
-        tabby(builder, tabs);
+        if (childNode != null){
+            childNode.buildString(builder, tabs);
+        }
+//        rightNode.buildString(builder, tabs);
+//        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+//        tabby(builder, tabs);
+//        builder.append(leftNode+ "\n");
+//        tabby(builder, tabs);
+//        tabby(builder, tabs);
 //        tabs++;
 //        builder.append(rightNode.lexeme.token() + "" + leftNode.lexeme.lexeme());
 
@@ -52,20 +54,12 @@ public class AssignNode implements INode {
         }
     }
 
-    public INode getLeftNode() {
-        return leftNode;
+    public INode getChild() {
+        return childNode;
     }
 
-    public void setLeftNode(AssignNode leftNode) {
-        this.leftNode = leftNode;
-    }
-
-    public INode getRightNode() {
-        return rightNode;
-    }
-
-    public void setRightNode(ExprNode rightNode) {
-        this.rightNode = rightNode;
+    public void setChild(INode childNode) {
+        this.childNode = childNode;
     }
 
     public Lexeme getLexeme() {

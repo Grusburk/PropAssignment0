@@ -25,7 +25,7 @@ public class TermNode implements INode {
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("TermNode\n");
-        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+        System.out.println(leftNode);
         leftNode.buildString(builder, tabs);
         builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
 //        leftNode.buildString(builder, tabs);
