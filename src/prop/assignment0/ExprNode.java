@@ -24,8 +24,8 @@ public class ExprNode implements INode {
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("ExprNode\n");
-        leftNode.buildString(builder, tabs);
         builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
+        leftNode.buildString(builder, tabs);
         builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
     }
 
