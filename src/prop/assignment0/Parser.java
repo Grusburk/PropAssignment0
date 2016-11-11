@@ -22,89 +22,53 @@ public class Parser implements IParser {
     public void open(String fileName) throws IOException, TokenizerException {
 		tokenizer = new Tokenizer();
 		tokenizer.open(fileName);
-		tokenizer.moveNext();
     }
 
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
-//		while loop, kolla typ(tokenizer.current().token(), assigna vänster, lexeme eller höger beroende på typ och regel.
-//		while (tokenizer.current().token() != Token.EOF){
-//		for (int i = 0; i != 3; i++){
-//			constructAssignNode();
-//			switch (tokenizer.current().token()){
-//				case IDENT:
-//				case SEMICOLON:
-//				case ASSIGN_OP:
-//					constructAssignNode();
-//					break;
-//				case ADD_OP:
-//				case SUB_OP:
-//					constructExprNode();
-//					break;
-//
-//				case LEFT_PAREN:
-//				case RIGHT_PAREN:
-//				case INT_LIT:
-////					constructFactorNode();
-//					break;
-//
-//				case DIV_OP:
-//				case MULT_OP:
-////					constructTermNode();
-//					break;
-//			}
-//		}
-
-//		}
-        return constructAssignNode();
+		tokenizer.moveNext();
+		INode node = assignNode;
+		return assignNode;
     }
 
 	private INode constructAssignNode() throws IOException, TokenizerException {
-		assignNode = new AssignNode(tokenizer.current());
-//		assignNode.setLexeme(tokenizer.current());
-		tokenizer.moveNext();
-		assignNode.setLeftNode(new AssignNode(tokenizer.current()));
-		tokenizer.moveNext();
-//		assignNode.setLexeme(tokenizer.current());
-		tokenizer.moveNext();
-		constructExprNode();
-		assignNode.setRightNode(exprNode);
+			assignNode = new AssignNode(tokenizer.current());
+			tokenizer.moveNext();
+			if (tokenizer.current().token() == Token.ASSIGN_OP){
 
-
+			}
+//		}
 		return assignNode;
 	}
 	private INode constructExprNode() throws IOException, TokenizerException {
-		exprNode = new ExprNode(tokenizer.current());
+		exprNode = new ExprNode();
+		exprNode.setLexeme(tokenizer.current());
+//		assignNode.setRightNode(exprNode);
 		tokenizer.moveNext();
-		exprNode.setRightNode(new ExprNode(tokenizer.current()));
+//		exprNode.setRightNode(new ExprNode(tokenizer.current()));
 		tokenizer.moveNext();
-		exprNode.getRightNode().setRightNode(this.exprNode);
-		tokenizer.moveNext();
-		constructTermNode();
-		exprNode.setLeftNode(termNode);
 
 		return exprNode;
 	}
 
 	private INode constructTermNode() throws IOException, TokenizerException {
-		termNode = new TermNode(tokenizer.current());
+		termNode = new TermNode();
+		termNode.setLexeme(tokenizer.current());
+//		exprNode.setLeftNode(termNode);
 		tokenizer.moveNext();
-		termNode.setRightNode(new TermNode(tokenizer.current()));
+//		termNode.setRightNode(new TermNode(tokenizer.current()));
 		tokenizer.moveNext();
-		constructFactorNode();
-		termNode.setLeftNode(factorNode);
 		return termNode;
 	}
 
 	private INode constructFactorNode() throws IOException, TokenizerException {
-		factorNode = new FactorNode(tokenizer.current());
+		factorNode = new FactorNode();
 		factorNode.setLexeme(tokenizer.current());
+		termNode.setLeftNode(factorNode);
 		tokenizer.moveNext();
 		factorNode.setLeftNode(tokenizer.current());
-//		System.out.println(factorNode.getLeftNode());
 		tokenizer.moveNext();
-		factorNode.setRightNode(exprNode.getRightNode());
-//		System.out.println(factorNode.getRightNode());
+//		factorNode.setRightNode(exprNode.getRightNode());
 		return factorNode;
 	}
 //
