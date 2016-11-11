@@ -59,7 +59,12 @@ public class Parser implements IParser {
         return constructAssignNode();
     }
 
+	
+
 	private INode constructAssignNode() throws IOException, TokenizerException {
+		if(tokenizer.current().token() == Token.ASSIGN_OP || tokenizer.current().token() == Token.IDENT){
+
+		}
 		assignNode = new AssignNode(tokenizer.current());
 //		assignNode.setLexeme(tokenizer.current());
 		tokenizer.moveNext();
