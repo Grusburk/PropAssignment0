@@ -10,8 +10,8 @@ public class Parser implements IParser {
 	
 	private Tokenizer tokenizer;
 	private ArrayList<INode> senteces = new ArrayList<>();
-	private AssignNode assignNode;
-	ExprNode exprNode;
+	private AssignmentNode assignNode;
+	ExpressionNode exprNode;
 	TermNode termNode;
 	FactorNode factorNode;
 	public Parser (){
@@ -27,28 +27,34 @@ public class Parser implements IParser {
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
-		INode node = assignNode;
-		return assignNode;
+		INode node = constructAssignNode();
+		return node;
     }
 
 	// assign = id , '=' , expr , ';' ;
 
 	private INode constructAssignNode() throws IOException, TokenizerException {
-		assignNode = new AssignNode();
-		assignNode.setLexemeId(tokenizer.current());
+		assignNode = new AssignmentNode(tokenizer.current());
 		tokenizer.moveNext();
 		if (tokenizer.current().token() == Token.ASSIGN_OP){
 			assignNode.setLexemeOp(tokenizer.current());
 			tokenizer.moveNext();
 		}
+
 		assignNode.setChild(constructExprNode());
+
+		if (tokenizer.current().token() == Token.SEMICOLON){
+			assignNode.setLexemeId(tokenizer.current());
+			tokenizer.moveNext();
+		}
+
 		return assignNode;
 	}
 
 	//expr = term , [ ( '+' | '-' ) , expr ] ;
 
 	private INode constructExprNode() throws IOException, TokenizerException {
-		exprNode = new ExprNode();
+		exprNode = new ExpressionNode();
 		exprNode.setTermNode(constructTermNode());
 		if (tokenizer.current().token() == Token.SUB_OP || tokenizer.current().token() == Token.ADD_OP) {
 			exprNode.setLexeme(tokenizer.current());
@@ -62,12 +68,14 @@ public class Parser implements IParser {
 
 	private INode constructTermNode() throws IOException, TokenizerException {
 		termNode = new TermNode();
-		termNode.setLexeme(tokenizer.current());
-		if (tokenizer.current().token() == Token.DIV_OP || tokenizer.current().token() == Token.MULT_OP) {
+		termNode.setFactorNode(constructFactorNode());
+
+		if (tokenizer.current().token() == Token.MULT_OP || tokenizer.current().token() == Token.DIV_OP){
 			termNode.setLexeme(tokenizer.current());
 			tokenizer.moveNext();
 			termNode.setTermNode(constructTermNode());
 		}
+
 		return termNode;
 	}
 
@@ -76,14 +84,22 @@ public class Parser implements IParser {
 	private INode constructFactorNode() throws IOException, TokenizerException {
 		factorNode = new FactorNode();
 
-		if(tokenizer.current().token() == Token.INT_LIT) {
-			factorNode.setLexemeId(tokenizer.current());
-			tokenizer.moveNext();
+		switch (tokenizer.current().token()){
+			case INT_LIT:
+			case IDENT:
+				factorNode.setLexemeId(tokenizer.current());
+				tokenizer.moveNext();
+				break;
+			case LEFT_PAREN:
+				factorNode.setLexemeOp(tokenizer.current());
+				tokenizer.moveNext();
+				factorNode.setExprNode(constructExprNode());
+			if (tokenizer.current().token() == Token.RIGHT_PAREN){
+				factorNode.setLexemeOp(tokenizer.current());
+				tokenizer.moveNext();
+			}
+			break;
 		}
-
-		factorNode.setExprNode(constructExprNode());
-		tokenizer.moveNext();
-//		factorNode.setRightNode(exprNode.getRightNode());
 		return factorNode;
 	}
 
