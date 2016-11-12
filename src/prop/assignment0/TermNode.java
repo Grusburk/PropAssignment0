@@ -5,17 +5,8 @@
  */
 public class TermNode implements INode {
 
-    private INode factorNode;
-    private INode termNode;
-    public Lexeme lexeme;
-
-//    public TermNode() {
-//
-//    }
-//
-//    public TermNode(Lexeme current) {
-//        lexeme = current;
-//    }
+    private INode factorNode, termNode;
+    private Lexeme lexeme;
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
