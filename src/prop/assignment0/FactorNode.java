@@ -7,17 +7,6 @@ public class FactorNode implements INode {
     private Lexeme lexemeId, lexemeOp;
     private INode exprNode;
 
-//    public FactorNode(Lexeme current) {
-//
-//    }
-//
-//    public FactorNode() {
-//
-//    }
-
-//    public Lexeme getLeftNode() {
-//        return leftNode;
-//    }
     @Override
     public Object evaluate(Object[] args) throws Exception {
         return null;
@@ -25,38 +14,44 @@ public class FactorNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+        appendTab(builder, tabs);
         builder.append("FactorNode\n");
-        System.out.println(exprNode);
+        tabs++;
 
-//        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
-//        builder.append(leftNode.token() + " " + leftNode.value() + "\n");
-//        rightNode.buildString(builder, tabs);
+        switch (lexemeId.token()){
+            case INT_LIT:
+                appendTab(builder, tabs);
+                builder.append(lexemeId + ".0\n");
+                break;
+            case IDENT:
+                appendTab(builder, tabs);
+                builder.append(lexemeId + "\n");
+                break;
+            case LEFT_PAREN:
+                appendTab(builder, tabs);
+                builder.append(lexemeId + "\n");
+                if (exprNode != null){
+                    exprNode.buildString(builder, tabs);
+                }
+                appendTab(builder, tabs);
+                builder.append(lexemeOp + "\n");
+        }
+    }
 
-//        rightNode.buildString(builder, tabs);
-//        leftNode.buildString(builder, tabs);
-//        tabs++;
-//        builder.append(leftNode.lexeme);
-//        tabs--;
-//        rightNode.buildString(builder, tabs);
-//        builder.append(rightNode.lexeme);
-
+    private void appendTab (StringBuilder builder, int tabs) {
+        for(int i = 0; i < tabs; i++){
+            builder.append("\t");
+        }
     }
 
     public void setLexemeId(Lexeme lexemeId) {
         this.lexemeId = lexemeId;
     }
 
-//    public ExpressionNode getRightNode() {
-//        return rightNode;
-//    }
 
     public void setExprNode(INode exprNode) {
         this.exprNode = exprNode;
     }
-
-//    public Lexeme getLexeme() {
-//        return lexeme;
-//    }
 
     public void setLexemeOp(Lexeme lexemeOp) {
         this.lexemeOp = lexemeOp;
