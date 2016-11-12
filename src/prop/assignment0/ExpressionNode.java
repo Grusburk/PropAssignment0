@@ -3,16 +3,15 @@ package prop.assignment0;
 /**
  * Created by matt on 2016-11-02.
  */
-public class ExprNode implements INode {
-    private TermNode leftNode;
-    private ExprNode rightNode;
-    public Lexeme lexeme;
+public class ExpressionNode implements INode {
+    private INode leftNode, rightNode;
+    private Lexeme lexeme;
 
-    public ExprNode() {
+    public ExpressionNode() {
 
     }
 
-    public ExprNode(Lexeme current) {
+    public ExpressionNode(Lexeme current) {
         lexeme = current;
     }
 
@@ -23,26 +22,18 @@ public class ExprNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
-        builder.append("ExprNode\n");
+        builder.append("ExpressionNode\n");
 //        leftNode.buildString(builder, tabs);
 //        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
 //        builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
     }
 
-    public TermNode getLeftNode() {
-        return leftNode;
-    }
-
-    public void setLeftNode(TermNode leftNode) {
-        this.leftNode = leftNode;
-    }
-
-    public ExprNode getRightNode() {
-        return rightNode;
-    }
-
-    public void setRightNode(ExprNode rightNode) {
-        this.rightNode = rightNode;
+    public void setChildNode(INode node) {
+        if (leftNode == null){
+            leftNode = node;
+        }else {
+            rightNode = node;
+        }
     }
 
     public Lexeme getLexeme() {

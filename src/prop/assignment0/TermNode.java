@@ -5,9 +5,8 @@
  */
 public class TermNode implements INode {
 
-    private FactorNode leftNode;
-    private TermNode rightNode;
-    public Lexeme lexeme;
+    private INode leftNode, rightNode;
+    private Lexeme lexeme;
 
     public TermNode() {
 
@@ -27,7 +26,6 @@ public class TermNode implements INode {
         builder.append("TermNode\n");
         System.out.println(leftNode);
         leftNode.buildString(builder, tabs);
-        builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
 //        leftNode.buildString(builder, tabs);
 //        tabs++;
 //        builder.append(leftNode.lexeme);
@@ -37,20 +35,12 @@ public class TermNode implements INode {
 
     }
 
-    public FactorNode getLeftNode() {
-        return leftNode;
-    }
-
-    public void setLeftNode(FactorNode leftNode) {
-        this.leftNode = leftNode;
-    }
-
-    public TermNode getRightNode() {
-        return rightNode;
-    }
-
-    public void setRightNode(TermNode rightNode) {
-        this.rightNode = rightNode;
+    public void setChildNode(INode node) {
+        if (leftNode == null){
+            leftNode = node;
+        }else {
+            rightNode = node;
+        }
     }
 
     public Lexeme getLexeme() {

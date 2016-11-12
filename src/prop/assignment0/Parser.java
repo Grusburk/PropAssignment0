@@ -1,7 +1,6 @@
 package prop.assignment0;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by matt on 2016-11-02.
@@ -9,9 +8,8 @@ import java.util.ArrayList;
 public class Parser implements IParser {
 	
 	private Tokenizer tokenizer;
-	private ArrayList<INode> senteces = new ArrayList<>();
-	private AssignNode assignNode;
-	ExprNode exprNode;
+	private AssignmentNode assignNode;
+	ExpressionNode exprNode;
 	TermNode termNode;
 	FactorNode factorNode;
 	public Parser (){
@@ -27,48 +25,73 @@ public class Parser implements IParser {
     @Override
     public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
-		INode node = assignNode;
-		return assignNode;
+		INode rootNode = constructAssignNode();
+
+		return rootNode;
     }
 
 	private INode constructAssignNode() throws IOException, TokenizerException {
-			assignNode = new AssignNode(tokenizer.current());
+			assignNode = new AssignmentNode(tokenizer.current());
 			tokenizer.moveNext();
 			if (tokenizer.current().token() == Token.ASSIGN_OP){
-
+				assignNode.setLexeme(tokenizer.current());
+				tokenizer.moveNext();
 			}
-//		}
+
+			assignNode.setChild(constructExprNode());
+
+			if (tokenizer.current().token() == Token.SEMICOLON)
+				assignNode.setLexeme(tokenizer.current());
+				tokenizer.moveNext();
+
 		return assignNode;
+
 	}
 	private INode constructExprNode() throws IOException, TokenizerException {
-		exprNode = new ExprNode();
-		exprNode.setLexeme(tokenizer.current());
-//		assignNode.setRightNode(exprNode);
-		tokenizer.moveNext();
-//		exprNode.setRightNode(new ExprNode(tokenizer.current()));
-		tokenizer.moveNext();
+		exprNode = new ExpressionNode();
+//		Since term leftNode it goes first
+		exprNode.setChildNode(constructTermNode());
+
+		if (tokenizer.current().token() == Token.SUB_OP || tokenizer.current().token() == Token.ADD_OP){
+			exprNode.setLexeme(tokenizer.current());
+			tokenizer.moveNext();
+			exprNode.setChildNode(constructExprNode());
+		}
 
 		return exprNode;
 	}
 
 	private INode constructTermNode() throws IOException, TokenizerException {
 		termNode = new TermNode();
-		termNode.setLexeme(tokenizer.current());
-//		exprNode.setLeftNode(termNode);
-		tokenizer.moveNext();
-//		termNode.setRightNode(new TermNode(tokenizer.current()));
-		tokenizer.moveNext();
+//		Same structure as ExpressionNode
+		termNode.setChildNode(constructFactorNode());
+
+		if (tokenizer.current().token() == Token.MULT_OP || tokenizer.current().token() == Token.DIV_OP){
+			termNode.setLexeme(tokenizer.current());
+			tokenizer.moveNext();
+			termNode.setChildNode(constructTermNode());
+		}
 		return termNode;
 	}
 
 	private INode constructFactorNode() throws IOException, TokenizerException {
 		factorNode = new FactorNode();
-		factorNode.setLexeme(tokenizer.current());
-		termNode.setLeftNode(factorNode);
-		tokenizer.moveNext();
-		factorNode.setLeftNode(tokenizer.current());
-		tokenizer.moveNext();
-//		factorNode.setRightNode(exprNode.getRightNode());
+		switch (tokenizer.current().token()){
+			case INT_LIT:
+			case IDENT:
+				factorNode.setLexeme(tokenizer.current());
+				tokenizer.moveNext();
+				break;
+			case LEFT_PAREN:
+				factorNode.setLexeme(tokenizer.current());
+				tokenizer.moveNext();
+				factorNode.setChildNode(constructExprNode());
+				if (tokenizer.current().token() == Token.RIGHT_PAREN){
+					factorNode.setLexeme(tokenizer.current());
+					tokenizer.moveNext();
+				}
+				break;
+		}
 		return factorNode;
 	}
 //
@@ -86,6 +109,6 @@ public class Parser implements IParser {
 
     @Override
     public void close() throws IOException {
-
+		tokenizer.close();
     }
 }

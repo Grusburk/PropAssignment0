@@ -4,41 +4,17 @@
  * Created by matt on 2016-11-02.
  */
 public class FactorNode implements INode {
-    private Lexeme leftNode;
-    private ExprNode rightNode;
-    public Lexeme lexeme;
-
-    public FactorNode(Lexeme current) {
-
-    }
+    private INode rightNode;
+    public Lexeme lexeme1, lexeme2;
 
     public FactorNode() {
 
     }
 
-    public Lexeme getLeftNode() {
-        return leftNode;
+    public FactorNode(Lexeme current) {
+
     }
 
-    public void setLeftNode(Lexeme leftNode) {
-        this.leftNode = leftNode;
-    }
-
-    public ExprNode getRightNode() {
-        return rightNode;
-    }
-
-    public void setRightNode(ExprNode rightNode) {
-        this.rightNode = rightNode;
-    }
-
-    public Lexeme getLexeme() {
-        return lexeme;
-    }
-
-    public void setLexeme(Lexeme lexeme) {
-        this.lexeme = lexeme;
-    }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
@@ -61,6 +37,17 @@ public class FactorNode implements INode {
 //        tabs--;
 //        rightNode.buildString(builder, tabs);
 //        builder.append(rightNode.lexeme);
+    }
 
+    public void setChildNode(INode rightNode) {
+        this.rightNode = rightNode;
+    }
+
+    public void setLexeme(Lexeme lexeme) {
+        if (lexeme1 == null){
+            lexeme1 = lexeme;
+        }else {
+            lexeme2 = lexeme;
+        }
     }
 }
