@@ -9,11 +9,7 @@ import java.util.ArrayList;
 public class Parser implements IParser {
 	
 	private Tokenizer tokenizer;
-	private ArrayList<INode> senteces = new ArrayList<>();
-	private AssignmentNode assignNode;
-	ExpressionNode exprNode;
-	TermNode termNode;
-	FactorNode factorNode;
+
 	public Parser (){
 		
 	}
@@ -34,7 +30,7 @@ public class Parser implements IParser {
 	// assign = id , '=' , expr , ';' ;
 
 	private INode constructAssignNode() throws IOException, TokenizerException {
-		assignNode = new AssignmentNode(tokenizer.current());
+		AssignmentNode assignNode = new AssignmentNode(tokenizer.current());
 		tokenizer.moveNext();
 		if (tokenizer.current().token() == Token.ASSIGN_OP){
 			assignNode.setLexemeOp(tokenizer.current());
@@ -54,7 +50,7 @@ public class Parser implements IParser {
 	//expr = term , [ ( '+' | '-' ) , expr ] ;
 
 	private INode constructExprNode() throws IOException, TokenizerException {
-		exprNode = new ExpressionNode();
+		ExpressionNode exprNode = new ExpressionNode();
 		exprNode.setTermNode(constructTermNode());
 		if (tokenizer.current().token() == Token.SUB_OP || tokenizer.current().token() == Token.ADD_OP) {
 			exprNode.setLexeme(tokenizer.current());
@@ -67,9 +63,8 @@ public class Parser implements IParser {
 	// term = factor , [ ( '*' | '/') , term] ;
 
 	private INode constructTermNode() throws IOException, TokenizerException {
-		termNode = new TermNode();
+		TermNode termNode = new TermNode();
 		termNode.setFactorNode(constructFactorNode());
-
 		if (tokenizer.current().token() == Token.MULT_OP || tokenizer.current().token() == Token.DIV_OP){
 			termNode.setLexeme(tokenizer.current());
 			tokenizer.moveNext();
@@ -82,7 +77,7 @@ public class Parser implements IParser {
 	// factor = int | '(' , expr , ')' ;
 
 	private INode constructFactorNode() throws IOException, TokenizerException {
-		factorNode = new FactorNode();
+		FactorNode factorNode = new FactorNode();
 
 		switch (tokenizer.current().token()){
 			case INT_LIT:
@@ -91,7 +86,7 @@ public class Parser implements IParser {
 				tokenizer.moveNext();
 				break;
 			case LEFT_PAREN:
-				factorNode.setLexemeOp(tokenizer.current());
+				factorNode.setLexemeId(tokenizer.current());
 				tokenizer.moveNext();
 				factorNode.setExprNode(constructExprNode());
 			if (tokenizer.current().token() == Token.RIGHT_PAREN){
