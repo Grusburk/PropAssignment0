@@ -5,7 +5,7 @@
  */
 public class FactorNode implements INode {
     private Lexeme lexemeId, lexemeOp;
-    private ExprNode exprNode;
+    private INode exprNode;
 
 //    public FactorNode(Lexeme current) {
 //
@@ -21,26 +21,6 @@ public class FactorNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
         return null;
-    }
-
-    public void setLexemeId(Lexeme lexemeId) {
-        this.lexemeId = lexemeId;
-    }
-
-//    public ExprNode getRightNode() {
-//        return rightNode;
-//    }
-
-    public void setExprNode(ExprNode exprNode) {
-        this.exprNode = exprNode;
-    }
-
-//    public Lexeme getLexeme() {
-//        return lexeme;
-//    }
-
-    public void setLexemeOp(Lexeme lexemeOp) {
-        this.lexemeOp = lexemeOp;
     }
 
     @Override
@@ -61,4 +41,25 @@ public class FactorNode implements INode {
 //        builder.append(rightNode.lexeme);
 
     }
+
+    public void setLexemeId(Lexeme lexemeId) {
+        this.lexemeId = lexemeId;
+    }
+
+//    public ExpressionNode getRightNode() {
+//        return rightNode;
+//    }
+
+    public void setExprNode(INode exprNode) {
+        this.exprNode = exprNode;
+    }
+
+//    public Lexeme getLexeme() {
+//        return lexeme;
+//    }
+
+    public void setLexemeOp(Lexeme lexemeOp) {
+        this.lexemeOp = lexemeOp;
+    }
+
 }
