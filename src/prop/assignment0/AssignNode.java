@@ -6,19 +6,18 @@
 public class AssignNode implements INode {
 
     private INode childNode;
-    private Lexeme lexeme;
+    private Lexeme lexemeId , lexemeOp; //, lexemeEnd;
 
     public AssignNode() {
     }
 
-    public AssignNode(Lexeme current) {
-        lexeme = current;
-    }
-
+//    public AssignNode(Lexeme current) {
+//        lexeme = current;
+//    }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return lexeme.value();
+        return lexemeId.value();
     }
 
     @Override
@@ -54,19 +53,27 @@ public class AssignNode implements INode {
         }
     }
 
-    public INode getChild() {
-        return childNode;
-    }
+//    public INode getChild() {
+//        return childNode;
+//    }
 
     public void setChild(INode childNode) {
         this.childNode = childNode;
     }
 
-    public Lexeme getLexeme() {
-        return lexeme;
+//    public Lexeme getLexemeId() {
+//        return lexemeId;
+//    }
+
+    public void setLexemeId(Lexeme lexeme) {
+        this.lexemeId = lexeme;
     }
 
-    public void setLexeme(Lexeme lexeme) {
-        this.lexeme = lexeme;
+    public void setLexemeOp(Lexeme lexeme) {
+        this.lexemeOp = lexeme;
     }
+
+//    public void setLexemeEnd(Lexeme lexeme) {
+//        this.lexemeEnd = lexeme;
+//    }
 }

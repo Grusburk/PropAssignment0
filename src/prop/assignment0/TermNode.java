@@ -5,17 +5,17 @@
  */
 public class TermNode implements INode {
 
-    private FactorNode leftNode;
-    private TermNode rightNode;
+    private INode factorNode;
+    private INode termNode;
     public Lexeme lexeme;
 
-    public TermNode() {
-
-    }
-
-    public TermNode(Lexeme current) {
-        lexeme = current;
-    }
+//    public TermNode() {
+//
+//    }
+//
+//    public TermNode(Lexeme current) {
+//        lexeme = current;
+//    }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
@@ -25,9 +25,9 @@ public class TermNode implements INode {
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("TermNode\n");
-        System.out.println(leftNode);
-        leftNode.buildString(builder, tabs);
-        builder.append(rightNode.lexeme.token() + " " + rightNode.lexeme.value() + "\n");
+        System.out.println(factorNode);
+        factorNode.buildString(builder, tabs);
+//        builder.append(termNode.lexeme.token() + " " + factorNode.lexeme.value() + "\n");
 //        leftNode.buildString(builder, tabs);
 //        tabs++;
 //        builder.append(leftNode.lexeme);
@@ -37,25 +37,25 @@ public class TermNode implements INode {
 
     }
 
-    public FactorNode getLeftNode() {
-        return leftNode;
+//    public FactorNode getLeftNode() {
+//        return leftNode;
+//    }
+
+    public void setFactorNode(INode factorNode) {
+        this.factorNode = factorNode;
     }
 
-    public void setLeftNode(FactorNode leftNode) {
-        this.leftNode = leftNode;
+//    public TermNode getRightNode() {
+//        return rightNode;
+//    }
+
+    public void setTermNode(INode termNode) {
+        this.termNode = termNode;
     }
 
-    public TermNode getRightNode() {
-        return rightNode;
-    }
-
-    public void setRightNode(TermNode rightNode) {
-        this.rightNode = rightNode;
-    }
-
-    public Lexeme getLexeme() {
-        return lexeme;
-    }
+//    public Lexeme getLexeme() {
+//        return lexeme;
+//    }
 
     public void setLexeme(Lexeme lexeme) {
         this.lexeme = lexeme;

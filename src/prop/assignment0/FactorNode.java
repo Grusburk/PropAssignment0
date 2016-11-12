@@ -4,51 +4,49 @@
  * Created by matt on 2016-11-02.
  */
 public class FactorNode implements INode {
-    private Lexeme leftNode;
-    private ExprNode rightNode;
-    public Lexeme lexeme;
+    private Lexeme lexemeId, lexemeOp;
+    private ExprNode exprNode;
 
-    public FactorNode(Lexeme current) {
+//    public FactorNode(Lexeme current) {
+//
+//    }
+//
+//    public FactorNode() {
+//
+//    }
 
-    }
-
-    public FactorNode() {
-
-    }
-
-    public Lexeme getLeftNode() {
-        return leftNode;
-    }
-
-    public void setLeftNode(Lexeme leftNode) {
-        this.leftNode = leftNode;
-    }
-
-    public ExprNode getRightNode() {
-        return rightNode;
-    }
-
-    public void setRightNode(ExprNode rightNode) {
-        this.rightNode = rightNode;
-    }
-
-    public Lexeme getLexeme() {
-        return lexeme;
-    }
-
-    public void setLexeme(Lexeme lexeme) {
-        this.lexeme = lexeme;
-    }
-
+//    public Lexeme getLeftNode() {
+//        return leftNode;
+//    }
     @Override
     public Object evaluate(Object[] args) throws Exception {
         return null;
     }
 
+    public void setLexemeId(Lexeme lexemeId) {
+        this.lexemeId = lexemeId;
+    }
+
+//    public ExprNode getRightNode() {
+//        return rightNode;
+//    }
+
+    public void setExprNode(ExprNode exprNode) {
+        this.exprNode = exprNode;
+    }
+
+//    public Lexeme getLexeme() {
+//        return lexeme;
+//    }
+
+    public void setLexemeOp(Lexeme lexemeOp) {
+        this.lexemeOp = lexemeOp;
+    }
+
     @Override
     public void buildString(StringBuilder builder, int tabs) {
         builder.append("FactorNode\n");
-        System.out.println(rightNode);
+        System.out.println(exprNode);
 
 //        builder.append(lexeme.token() + " " + lexeme.value()  + "\n");
 //        builder.append(leftNode.token() + " " + leftNode.value() + "\n");
