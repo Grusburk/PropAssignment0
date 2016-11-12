@@ -15,38 +15,35 @@ public class TermNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+        appendTab(builder, tabs);
         builder.append("TermNode\n");
-        System.out.println(factorNode);
-        factorNode.buildString(builder, tabs);
-//        builder.append(termNode.lexeme.token() + " " + factorNode.lexeme.value() + "\n");
-//        leftNode.buildString(builder, tabs);
-//        tabs++;
-//        builder.append(leftNode.lexeme);
-//        tabs--;
-//        rightNode.buildString(builder, tabs);
-//        builder.append(rightNode.lexeme);
+        tabs++;
+        if (factorNode != null){
+            factorNode.buildString(builder, tabs);
+        }
+        if (lexeme != null){
+            appendTab(builder, tabs);
+            builder.append(lexeme + "\n");
+            if (termNode != null){
+                termNode.buildString(builder, tabs);
+            }
+        }
 
     }
 
-//    public FactorNode getLeftNode() {
-//        return leftNode;
-//    }
+    private void appendTab (StringBuilder builder, int tabs) {
+        for(int i = 0; i < tabs; i++){
+            builder.append("\t");
+        }
+    }
 
     public void setFactorNode(INode factorNode) {
         this.factorNode = factorNode;
     }
 
-//    public TermNode getRightNode() {
-//        return rightNode;
-//    }
-
     public void setTermNode(INode termNode) {
         this.termNode = termNode;
     }
-
-//    public Lexeme getLexeme() {
-//        return lexeme;
-//    }
 
     public void setLexeme(Lexeme lexeme) {
         this.lexeme = lexeme;
