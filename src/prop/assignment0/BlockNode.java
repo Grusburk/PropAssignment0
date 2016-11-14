@@ -6,6 +6,11 @@ package prop.assignment0;
 public class BlockNode implements INode {
 
     private Lexeme lexeme;
+    private INode stmtsNode;
+
+    public BlockNode() {
+
+    }
 
     public BlockNode(Lexeme current) {
         lexeme = current;
@@ -23,5 +28,13 @@ public class BlockNode implements INode {
             builder.append("    ");
         }
         builder.append(lexeme.token() + " " + lexeme.value());
+    }
+
+    public void setLexeme(Lexeme lexeme){
+        this.lexeme = lexeme;
+    }
+
+    public void setStmtNode(INode stmtsNode){
+        this.stmtsNode = stmtsNode;
     }
 }

@@ -86,6 +86,6 @@ public class Tokenizer implements ITokenizer {
 
 	@Override
     public void close() throws IOException {
-
+		scanner.close();
     }
 }

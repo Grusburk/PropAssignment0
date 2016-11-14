@@ -8,6 +8,9 @@ public class AssignmentNode implements INode {
     private INode childNode;
     private Lexeme lexemeId , lexemeOp, lexemeCurrent;
 
+    public AssignmentNode() {
+    }
+
     public AssignmentNode(Lexeme current) {
         lexemeCurrent = current;
     }
@@ -48,6 +51,10 @@ public class AssignmentNode implements INode {
 
     public void setLexemeOp(Lexeme lexeme) {
         this.lexemeOp = lexeme;
+    }
+
+    public void setLexemeCurrent(Lexeme lexeme) {
+        this.lexemeCurrent = lexeme;
     }
 
 }
