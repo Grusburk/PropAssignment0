@@ -1,7 +1,6 @@
 package prop.assignment0;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by matt on 2016-11-02.
@@ -23,36 +22,37 @@ public class Parser implements IParser {
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
-		INode node = constructAssignNode();
-		return node;
+		INode rootNode = constructBlockNode();
+		return rootNode;
 	}
 
 //    // block = '{' , stmts , '}' ;
 //
-//	private INode constructBlockNode() {
-//		BlockNode blockNode = new BlockNode();
-//		if (tokenizer.current().token() == Token.LEFT_CURLY){
-//			blockNode.setLexeme(tokenizer.current());
-//		}
-//
-//		blockNode.setStmtNode(constructStmtsNode());
-//
-//		if (tokenizer.current().token() == Token.RIGHT_CURLY){
-//			blockNode.setLexeme(tokenizer.current());
-//		}
-//		return blockNode;
-//	}
+	private INode constructBlockNode() throws IOException, ParserException, TokenizerException {
+		BlockNode blockNode = new BlockNode();
+		if (tokenizer.current().token() == Token.LEFT_CURLY){
+			blockNode.setLexemeLeftCurly(tokenizer.current());
+			tokenizer.moveNext();
+		}
+
+		blockNode.setStmtNode(constructStmtsNode());
+
+		if (tokenizer.current().token() == Token.RIGHT_CURLY){
+			blockNode.setLexemeRightCurly(tokenizer.current());
+		}
+		return blockNode;
+	}
 //
 //	// stmts = [ assign , stmts ] ;
 //
-//	private INode constructStmtsNode(){
-//		StmtsNode stmtsNode = new StmtsNode();
-//		if (toknizer.current().token() == Token.IDENT){
-//			stmtsNode.setAssignNode(constructAssignNode());
-//	 		stmtsNode.setStmtsNode(constructStmtsNode());
-//		}
-//		return stmtsNode;
-//	}
+	private INode constructStmtsNode() throws TokenizerException, ParserException, IOException {
+		StatementsNode statementsNode = new StatementsNode();
+		if (tokenizer.current().token() == Token.IDENT){
+			statementsNode.setAssignNode(constructAssignNode());
+	 		statementsNode.setStmtsNode(constructStmtsNode());
+		}
+		return statementsNode;
+	}
 
 	private INode constructAssignNode() throws IOException, TokenizerException, ParserException {
 		AssignmentNode assignNode = new AssignmentNode();
