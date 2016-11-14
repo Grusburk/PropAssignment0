@@ -5,33 +5,35 @@ package prop.assignment0;
  */
 public class BlockNode implements INode {
 
-    private Lexeme lexeme;
+    private Lexeme lexemeLeftCurly, lexemeRightCurly;
     private INode stmtsNode;
 
     public BlockNode() {
 
     }
 
-    public BlockNode(Lexeme current) {
-        lexeme = current;
-    }
-
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return lexeme.value();
+        return null;
     }
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
-        builder.append("\nBlockNode");
-        for (int i = 0; i < tabs; i++) {
-            builder.append("    ");
+        builder.append("BlockNode\n");
+        builder.append(lexemeLeftCurly + "\n");
+        tabs++;
+        if (stmtsNode != null){
+            stmtsNode.buildString(builder, tabs);
         }
-        builder.append(lexeme.token() + " " + lexeme.value());
+        builder.append(lexemeRightCurly + "\n");
     }
 
-    public void setLexeme(Lexeme lexeme){
-        this.lexeme = lexeme;
+    public void setLexemeLeftCurly(Lexeme lexemeLeftCurly) {
+        this.lexemeLeftCurly = lexemeLeftCurly;
+    }
+
+    public void setLexemeRightCurly(Lexeme lexemeRightCurly) {
+        this.lexemeRightCurly = lexemeRightCurly;
     }
 
     public void setStmtNode(INode stmtsNode){
