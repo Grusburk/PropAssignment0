@@ -7,25 +7,25 @@ import java.util.ArrayList;
  * Created by matt on 2016-11-02.
  */
 public class Parser implements IParser {
-	
+
 	private Tokenizer tokenizer;
 
-	public Parser (){
-		
+	public Parser() {
+
 	}
-	
-    @Override
-    public void open(String fileName) throws IOException, TokenizerException {
+
+	@Override
+	public void open(String fileName) throws IOException, TokenizerException {
 		tokenizer = new Tokenizer();
 		tokenizer.open(fileName);
-    }
+	}
 
-    @Override
-    public INode parse() throws IOException, TokenizerException, ParserException {
+	@Override
+	public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
 		INode node = constructAssignNode();
 		return node;
-    }
+	}
 
 //    // block = '{' , stmts , '}' ;
 //
@@ -47,8 +47,10 @@ public class Parser implements IParser {
 //
 //	private INode constructStmtsNode(){
 //		StmtsNode stmtsNode = new StmtsNode();
-//		stmtsNode.setAssignNode(constructAssignNode());
-//		stmtsNode.setStmtsNode(constructStmtsNode());
+//		if (toknizer.current().token() == Token.IDENT){
+//			stmtsNode.setAssignNode(constructAssignNode());
+//	 		stmtsNode.setStmtsNode(constructStmtsNode());
+//		}
 //		return stmtsNode;
 //	}
 
@@ -82,47 +84,30 @@ public class Parser implements IParser {
 
 	private INode constructExprNode() throws IOException, TokenizerException, ParserException {
 		ExpressionNode exprNode = new ExpressionNode();
-		switch (tokenizer.current().token()) {
-			case INT_LIT:
-			case IDENT:
-			case RIGHT_PAREN:
-			case SEMICOLON:
-			case ADD_OP:
-			case SUB_OP:
-				exprNode.setTermNode(constructTermNode());
-				if (tokenizer.current().token() == Token.ADD_OP || tokenizer.current().token() == Token.SUB_OP) {
+		exprNode.setTermNode(constructTermNode());
+		if(tokenizer.current().token() == Token.ADD_OP || tokenizer.current().token() == Token.SUB_OP) {
 					exprNode.setLexeme(tokenizer.current());
 					tokenizer.moveNext();
 					exprNode.setExprNode(constructExprNode());
-				}
-				break;
-			default:
-				throwParserExcep();
-		}
+			} else if (tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON ){
+			throwParserExcep();
+			}
 		return exprNode;
 	}
 
 
 	private INode constructTermNode() throws IOException, TokenizerException, ParserException {
 		TermNode termNode = new TermNode();
-		switch (tokenizer.current().token()) {
-			case MULT_OP:
-			case DIV_OP:
-			case SUB_OP:
-			case ADD_OP:
-			case INT_LIT:
-			case SEMICOLON:
-			case RIGHT_PAREN:
-				throwParserExcep();
-				break;
-			default:
-				termNode.setFactorNode(constructFactorNode());
-				if (tokenizer.current().token() == Token.MULT_OP || tokenizer.current().token() == Token.DIV_OP) {
+		termNode.setFactorNode(constructFactorNode());
+			if (tokenizer.current().token() == Token.MULT_OP || tokenizer.current().token() == Token.DIV_OP) {
 					termNode.setLexeme(tokenizer.current());
 					tokenizer.moveNext();
 					termNode.setTermNode(constructTermNode());
-				}
-		}
+				} else if (tokenizer.current().token() != Token.SUB_OP && tokenizer.current().token() != Token.ADD_OP && tokenizer.current().token() != Token.INT_LIT
+					&& tokenizer.current().token() != Token.IDENT && tokenizer.current().token() != Token.RIGHT_PAREN &&
+					tokenizer.current().token() != Token.SEMICOLON){
+					throwParserExcep();
+			}
 		return termNode;
 	}
 
@@ -152,7 +137,7 @@ public class Parser implements IParser {
 	}
 
 	private void throwParserExcep() throws ParserException{
-		throw new ParserException("");
+		throw new ParserException(tokenizer.current().token() + "THIS");
 	}
 
     @Override
