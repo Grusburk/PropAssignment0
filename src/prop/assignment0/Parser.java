@@ -33,10 +33,16 @@ public class Parser implements IParser {
 		if (tokenizer.current().token() == Token.LEFT_CURLY){
 			blockNode.setLexemeLeftCurly(tokenizer.current());
 			tokenizer.moveNext();
+		}else {
+			throwParserExcep();
 		}
+
 		blockNode.setStmtNode(constructStmtsNode());
+
 		if (tokenizer.current().token() == Token.RIGHT_CURLY){
 			blockNode.setLexemeRightCurly(tokenizer.current());
+		}else {
+			throwParserExcep();
 		}
 		return blockNode;
 	}
@@ -45,9 +51,15 @@ public class Parser implements IParser {
 //
 	private INode constructStmtsNode() throws TokenizerException, ParserException, IOException {
 		StatementsNode statementsNode = new StatementsNode();
-		if (tokenizer.current().token() == Token.IDENT){
+		switch (tokenizer.current().token()){
+			case IDENT:
 			statementsNode.setAssignNode(constructAssignNode());
 	 		statementsNode.setStmtsNode(constructStmtsNode());
+				break;
+			case RIGHT_CURLY:
+				break;
+			default:
+				throwParserExcep();
 		}
 		return statementsNode;
 	}
@@ -141,7 +153,7 @@ public class Parser implements IParser {
 	}
 
 	private void throwParserExcep() throws ParserException{
-		throw new ParserException(tokenizer.current().token() + "THIS");
+		throw new ParserException(tokenizer.current().token() + " This token is in the wrong node.");
 	}
 
     @Override
