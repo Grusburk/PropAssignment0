@@ -22,6 +22,7 @@ public class AssignmentNode implements INode {
 
     @Override
     public void buildString(StringBuilder builder, int tabs) {
+        appendTab(builder, tabs);
         builder.append("AssignmentNode\n");
         tabs++;
         appendTab(builder, tabs);
