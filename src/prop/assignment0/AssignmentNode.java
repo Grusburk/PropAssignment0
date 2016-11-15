@@ -18,7 +18,8 @@ public class AssignmentNode implements INode {
     @Override
     public Object evaluate(Object[] args) throws Exception {
         if (exprNode != null){
-            return exprNode.evaluate(args);
+            String result = lexemeCurrent.value() + " " + lexemeOp.value();
+            return result + " " + exprNode.evaluate(args);
         }
         return null;
     }

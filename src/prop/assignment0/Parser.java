@@ -22,47 +22,46 @@ public class Parser implements IParser {
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
-		INode rootNode = constructAssignNode();
+		INode rootNode = constructBlockNode();
 		return rootNode;
 	}
 
-//    // block = '{' , stmts , '}' ;
-//
-//	private INode constructBlockNode() throws IOException, ParserException, TokenizerException {
-//		BlockNode blockNode = new BlockNode();
-//		if (tokenizer.current().token() == Token.LEFT_CURLY){
-//			blockNode.setLexemeLeftCurly(tokenizer.current());
-//			tokenizer.moveNext();
-//		}else {
-//			throwParserExcep();
-//		}
-//
-//		blockNode.setStmtNode(constructStmtsNode());
-//
-//		if (tokenizer.current().token() == Token.RIGHT_CURLY){
-//			blockNode.setLexemeRightCurly(tokenizer.current());
-//		}else {
-//			throwParserExcep();
-//		}
-//		return blockNode;
-//	}
-////
-////	// stmts = [ assign , stmts ] ;
-////
-//	private INode constructStmtsNode() throws TokenizerException, ParserException, IOException {
-//		StatementsNode statementsNode = new StatementsNode();
-//		switch (tokenizer.current().token()){
-//			case IDENT:
-//			statementsNode.setAssignNode(constructAssignNode());
-//	 		statementsNode.setStmtsNode(constructStmtsNode());
-//				break;
-//			case RIGHT_CURLY:
-//				break;
-//			default:
-//				throwParserExcep();
-//		}
-//		return statementsNode;
-//	}
+	private INode constructBlockNode() throws IOException, ParserException, TokenizerException {
+		if (tokenizer.current().token() != Token.IDENT) {
+			BlockNode blockNode = new BlockNode();
+			if (tokenizer.current().token() == Token.LEFT_CURLY) {
+				blockNode.setLexemeLeftCurly(tokenizer.current());
+				tokenizer.moveNext();
+			} else {
+				throwParserExcep();
+			}
+
+			blockNode.setStmtNode(constructStmtsNode());
+
+			if (tokenizer.current().token() == Token.RIGHT_CURLY) {
+				blockNode.setLexemeRightCurly(tokenizer.current());
+			} else {
+				throwParserExcep();
+			}
+			return blockNode;
+		}
+		return constructAssignNode();
+	}
+
+	private INode constructStmtsNode() throws TokenizerException, ParserException, IOException {
+		StatementsNode statementsNode = new StatementsNode();
+		switch (tokenizer.current().token()){
+			case IDENT:
+			statementsNode.setAssignNode(constructAssignNode());
+	 		statementsNode.setStmtsNode(constructStmtsNode());
+				break;
+			case RIGHT_CURLY:
+				break;
+			default:
+				throwParserExcep();
+		}
+		return statementsNode;
+	}
 
 	private INode constructAssignNode() throws IOException, TokenizerException, ParserException {
 		AssignmentNode assignNode = new AssignmentNode();

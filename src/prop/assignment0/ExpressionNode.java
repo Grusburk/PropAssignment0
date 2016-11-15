@@ -15,13 +15,16 @@ public class ExpressionNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        double d1 = (double)termNode.evaluate(args);
-        double d2 = (double)exprNode.evaluate(args);
-        if (lexeme.token() == Token.ADD_OP){
-            return d1 + d2;
-        } else {
-            return d1 - d2;
+        if (exprNode != null) {
+            double d1 = Double.parseDouble(termNode.evaluate(args).toString());
+            double d2 = Double.parseDouble(exprNode.evaluate(args).toString());
+            if (lexeme.token() == Token.ADD_OP) {
+                return d1 + d2;
+            } else {
+                return d1 - d2;
+            }
         }
+        return termNode.evaluate(args);
     }
 
     @Override

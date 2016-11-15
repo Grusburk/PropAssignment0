@@ -42,11 +42,13 @@ public class Tokenizer implements ITokenizer {
 	private void setLexeme(char inputChar) throws IOException, TokenizerException {
 		if (inputChar >= 'a' && inputChar <='z') {
 			current = new Lexeme(inputChar, Token.IDENT);
-		}else if(inputChar >= '0' && inputChar <='9'){
+		} else if (inputChar >= '0' && inputChar <='9'){
 			current = new Lexeme(inputChar, Token.INT_LIT);
-		}else if (inputChar == Scanner.EOF) {
+		} else if (inputChar == Scanner.NULL) {
+			current = new Lexeme(inputChar, Token.NULL);
+		} else if (inputChar == Scanner.EOF) {
 			current = new Lexeme(inputChar, Token.EOF);
-		} else{
+		} else {
 			switch (inputChar) {
 				case '{':
 					current = new Lexeme('{', Token.LEFT_CURLY);

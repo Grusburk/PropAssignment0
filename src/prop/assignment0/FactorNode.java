@@ -24,7 +24,7 @@ public class FactorNode implements INode {
         switch (lexemeId.token()){
             case INT_LIT:
                 appendTab(builder, tabs);
-                builder.append(lexemeId + "\n");
+                builder.append(lexemeId + ".0\n");
                 break;
             case IDENT:
                 appendTab(builder, tabs);
