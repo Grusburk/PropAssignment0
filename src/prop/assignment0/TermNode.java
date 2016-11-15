@@ -10,7 +10,13 @@ public class TermNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return lexeme.value();
+        double d1 = (double)factorNode.evaluate(args);
+        double d2 = (double)termNode.evaluate(args);
+        if (lexeme.token() == Token.MULT_OP) {
+            return d1 * d2;
+        } else {
+            return d1 / d2;
+        }
     }
 
     @Override

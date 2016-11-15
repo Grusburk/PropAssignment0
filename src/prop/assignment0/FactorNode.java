@@ -9,7 +9,10 @@ public class FactorNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return null;
+        if (exprNode == null)
+            return lexemeId.value();
+        else
+            return exprNode.evaluate(args);
     }
 
     @Override
@@ -21,7 +24,7 @@ public class FactorNode implements INode {
         switch (lexemeId.token()){
             case INT_LIT:
                 appendTab(builder, tabs);
-                builder.append(lexemeId + ".0\n");
+                builder.append(lexemeId + "\n");
                 break;
             case IDENT:
                 appendTab(builder, tabs);
@@ -47,7 +50,6 @@ public class FactorNode implements INode {
     public void setLexemeId(Lexeme lexemeId) {
         this.lexemeId = lexemeId;
     }
-
 
     public void setExprNode(INode exprNode) {
         this.exprNode = exprNode;

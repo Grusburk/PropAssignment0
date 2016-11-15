@@ -17,7 +17,10 @@ public class AssignmentNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return lexemeId.value();
+        if (childNode != null){
+            return childNode.evaluate(args);
+        }
+        return null;
     }
 
     @Override

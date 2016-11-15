@@ -15,7 +15,13 @@ public class ExpressionNode implements INode {
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        return lexeme.value();
+        double d1 = (double)termNode.evaluate(args);
+        double d2 = (double)exprNode.evaluate(args);
+        if (lexeme.token() == Token.ADD_OP){
+            return d1 + d2;
+        } else {
+            return d1 - d2;
+        }
     }
 
     @Override
