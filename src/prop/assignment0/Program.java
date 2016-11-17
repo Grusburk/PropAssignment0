@@ -1,5 +1,5 @@
 /* Grupp 23
-	Mattin Lofti
+	Mattin Lotfi
 	Rickard Vickhoff
  */
 

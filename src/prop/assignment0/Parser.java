@@ -28,22 +28,22 @@ public class Parser implements IParser {
 	}
 
 	private INode constructBlockNode() throws IOException, ParserException, TokenizerException {
-			BlockNode blockNode = new BlockNode();
-			if (tokenizer.current().token() == Token.LEFT_CURLY) {
-				blockNode.setLexemeLeftCurly(tokenizer.current());
-				tokenizer.moveNext();
-			} else {
-				throwParserExcep();
-			}
+		BlockNode blockNode = new BlockNode();
+		if (tokenizer.current().token() == Token.LEFT_CURLY) {
+			blockNode.setLexemeLeftCurly(tokenizer.current());
+			tokenizer.moveNext();
+		} else {
+			throwParserExcep();
+		}
 
-			blockNode.setStmtNode(constructStmtsNode());
+		blockNode.setStmtNode(constructStmtsNode());
 
-			if (tokenizer.current().token() == Token.RIGHT_CURLY) {
-				blockNode.setLexemeRightCurly(tokenizer.current());
-			} else {
-				throwParserExcep();
-			}
-			return blockNode;
+		if (tokenizer.current().token() == Token.RIGHT_CURLY) {
+			blockNode.setLexemeRightCurly(tokenizer.current());
+		} else {
+			throwParserExcep();
+		}
+		return blockNode;
 	}
 
 	private INode constructStmtsNode() throws TokenizerException, ParserException, IOException {
