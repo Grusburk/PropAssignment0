@@ -8,18 +8,22 @@ import java.util.ArrayList;
 public class StatementsNode implements INode {
 
     private INode assignNode, stmtsNode;
-    private ArrayList<String> results = new ArrayList<>();
+//    private ArrayList<String> results = new ArrayList<>();
+
+    /*
+    Evaluator only works for program1.txt
+    */
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
-        if (stmtsNode != null) {
-            results.add(assignNode.evaluate(args).toString());
-            stmtsNode.evaluate(args);
-        } else {
-            results.add(assignNode.evaluate(args).toString());
-        }
-        return results;
-        //return null;
+//        if (stmtsNode != null) {
+//            results.add(assignNode.evaluate(args).toString());
+//            stmtsNode.evaluate(args);
+//        } else {
+//            results.add(assignNode.evaluate(args).toString());
+//        }
+//        return results;
+        return null;
     }
 
     @Override
