@@ -10,7 +10,6 @@ public class Parser implements IParser {
 	private Tokenizer tokenizer;
 
 	public Parser() {
-
 	}
 
 	@Override
@@ -95,9 +94,9 @@ public class Parser implements IParser {
 		ExpressionNode exprNode = new ExpressionNode();
 		exprNode.setTermNode(constructTermNode());
 		if(tokenizer.current().token() == Token.ADD_OP || tokenizer.current().token() == Token.SUB_OP) {
-				exprNode.setLexeme(tokenizer.current());
-				tokenizer.moveNext();
-				exprNode.setExprNode(constructExprNode());
+			exprNode.setLexeme(tokenizer.current());
+			tokenizer.moveNext();
+			exprNode.setExprNode(constructExprNode());
 		} else if (tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON ){
 			throwParserExcep();
 		}
