@@ -1,3 +1,8 @@
+/* Grupp 23
+	Mattin Lofti
+	Rickard Vickhoff
+ */
+
 package prop.assignment0;
 
 import java.io.FileOutputStream;

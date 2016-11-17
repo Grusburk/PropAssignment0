@@ -9,9 +9,6 @@ public class Parser implements IParser {
 
 	private Tokenizer tokenizer;
 
-	public Parser() {
-	}
-
 	@Override
 	public void open(String fileName) throws IOException, TokenizerException {
 		tokenizer = new Tokenizer();
@@ -114,13 +111,6 @@ public class Parser implements IParser {
 				break;
 			default:
 		}
-//		if(tokenizer.current().token() == Token.ADD_OP || tokenizer.current().token() == Token.SUB_OP) {
-//			exprNode.setLexeme(tokenizer.current());
-//			tokenizer.moveNext();
-//			exprNode.setExprNode(constructExprNode());
-//		} else if (tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON ){
-//			throwParserExcep();
-//		}
 		return exprNode;
 	}
 
@@ -150,6 +140,7 @@ public class Parser implements IParser {
 
 	private INode constructFactorNode() throws IOException, TokenizerException, ParserException {
 		FactorNode factorNode = new FactorNode();
+
 		switch (tokenizer.current().token()){
 			case INT_LIT:
 			case IDENT:

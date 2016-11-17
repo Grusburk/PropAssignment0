@@ -8,13 +8,6 @@ public class AssignmentNode implements INode {
     private INode exprNode;
     private Lexeme lexemeId, lexemeOp, lexemeSc;
 
-    public AssignmentNode() {
-    }
-
-    public AssignmentNode(Lexeme current) {
-        lexemeId = current;
-    }
-
     @Override
     public Object evaluate(Object[] args) throws Exception {
         if (exprNode != null){

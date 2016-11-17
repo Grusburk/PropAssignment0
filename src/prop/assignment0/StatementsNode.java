@@ -11,7 +11,7 @@ public class StatementsNode implements INode {
 //    private ArrayList<String> results = new ArrayList<>();
 
     /*
-    Evaluator only works for program1.txt
+    Evaluator only works for program1.txt. Starts in AssignmentNode.
     */
 
     @Override

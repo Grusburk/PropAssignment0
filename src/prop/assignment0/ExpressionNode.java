@@ -6,11 +6,7 @@ package prop.assignment0;
 
 public class ExpressionNode implements INode {
     private INode termNode, exprNode;
-    public Lexeme lexeme;
-
-    public ExpressionNode() {
-
-    }
+    private Lexeme lexeme;
 
     @Override
     public Object evaluate(Object[] args) throws Exception {

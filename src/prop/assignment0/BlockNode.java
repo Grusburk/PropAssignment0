@@ -8,12 +8,8 @@ public class BlockNode implements INode {
     private Lexeme lexemeLeftCurly, lexemeRightCurly;
     private INode stmtsNode;
 
-    public BlockNode() {
-
-    }
-
     /*
-    Evaluator only works for program1.txt
+    Evaluator only works for program1.txt. Starts in AssignmentNode.
     */
 
     @Override
