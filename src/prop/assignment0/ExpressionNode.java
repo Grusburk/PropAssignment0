@@ -49,11 +49,9 @@ public class ExpressionNode implements INode {
         this.termNode = termNode;
     }
 
-
     public void setExprNode(INode exprNode) {
         this.exprNode = exprNode;
     }
-
 
     public void setLexeme(Lexeme lexeme) {
         this.lexeme = lexeme;
