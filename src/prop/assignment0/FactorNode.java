@@ -4,7 +4,7 @@
  * Created by matt on 2016-11-02.
  */
 public class FactorNode implements INode {
-    private Lexeme lexemeId, lexemeOp;
+    private Lexeme lexemeId, lexemeRp;
     private INode exprNode;
 
     @Override
@@ -37,7 +37,7 @@ public class FactorNode implements INode {
                     exprNode.buildString(builder, tabs);
                 }
                 appendTab(builder, tabs);
-                builder.append(lexemeOp + "\n");
+                builder.append(lexemeRp + "\n");
         }
     }
 
@@ -47,16 +47,16 @@ public class FactorNode implements INode {
         }
     }
 
-    public void setLexemeId(Lexeme lexemeId) {
-        this.lexemeId = lexemeId;
+    public void setLexemeId(Lexeme lexeme) {
+        this.lexemeId = lexeme;
     }
 
     public void setExprNode(INode exprNode) {
         this.exprNode = exprNode;
     }
 
-    public void setLexemeOp(Lexeme lexemeOp) {
-        this.lexemeOp = lexemeOp;
+    public void setLexemeRp(Lexeme lexeme) {
+        this.lexemeRp = lexeme;
     }
 
 }

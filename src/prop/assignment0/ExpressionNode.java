@@ -5,8 +5,7 @@ package prop.assignment0;
  */
 
 public class ExpressionNode implements INode {
-    private INode termNode;
-    private INode exprNode;
+    private INode termNode, exprNode;
     public Lexeme lexeme;
 
     public ExpressionNode() {

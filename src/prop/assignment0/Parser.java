@@ -22,12 +22,16 @@ public class Parser implements IParser {
 	@Override
 	public INode parse() throws IOException, TokenizerException, ParserException {
 		tokenizer.moveNext();
-		INode rootNode = constructBlockNode();
+		INode rootNode;
+		if (tokenizer.current().token() == Token.IDENT){
+			rootNode = constructAssignNode();
+		}else {
+			rootNode = constructBlockNode();
+		}
 		return rootNode;
 	}
 
 	private INode constructBlockNode() throws IOException, ParserException, TokenizerException {
-		if (tokenizer.current().token() != Token.IDENT) {
 			BlockNode blockNode = new BlockNode();
 			if (tokenizer.current().token() == Token.LEFT_CURLY) {
 				blockNode.setLexemeLeftCurly(tokenizer.current());
@@ -44,8 +48,6 @@ public class Parser implements IParser {
 				throwParserExcep();
 			}
 			return blockNode;
-		}
-		return constructAssignNode();
 	}
 
 	private INode constructStmtsNode() throws TokenizerException, ParserException, IOException {
@@ -70,16 +72,16 @@ public class Parser implements IParser {
 			case ASSIGN_OP:
 			case SEMICOLON:
 				if (tokenizer.current().token() == Token.IDENT) {
-					assignNode.setLexemeCurrent(tokenizer.current());
+					assignNode.setLexemeId(tokenizer.current());
 					tokenizer.moveNext();
 				}
 				if (tokenizer.current().token() == Token.ASSIGN_OP) {
 					assignNode.setLexemeOp(tokenizer.current());
 					tokenizer.moveNext();
 				}
-				assignNode.setChild(constructExprNode());
+				assignNode.setExprNode(constructExprNode());
 				if (tokenizer.current().token() == Token.SEMICOLON) {
-					assignNode.setLexemeId(tokenizer.current());
+					assignNode.setLexemeSc(tokenizer.current());
 					tokenizer.moveNext();
 				}
 				break;
@@ -140,7 +142,7 @@ public class Parser implements IParser {
 				tokenizer.moveNext();
 				factorNode.setExprNode(constructExprNode());
 				if (tokenizer.current().token() == Token.RIGHT_PAREN){
-					factorNode.setLexemeOp(tokenizer.current());
+					factorNode.setLexemeRp(tokenizer.current());
 					tokenizer.moveNext();
 				}
 				break;

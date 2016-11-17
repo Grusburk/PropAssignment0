@@ -12,6 +12,10 @@ public class BlockNode implements INode {
 
     }
 
+    /*
+    Evaluator only works for program1.txt
+    */
+
     @Override
     public Object evaluate(Object[] args) throws Exception {
         return null;

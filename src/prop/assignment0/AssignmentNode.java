@@ -6,20 +6,20 @@
 public class AssignmentNode implements INode {
 
     private INode exprNode;
-    private Lexeme lexemeId , lexemeOp, lexemeCurrent;
+    private Lexeme lexemeId, lexemeOp, lexemeSc;
 
     public AssignmentNode() {
     }
 
     public AssignmentNode(Lexeme current) {
-        lexemeCurrent = current;
+        lexemeId = current;
     }
 
     @Override
     public Object evaluate(Object[] args) throws Exception {
         if (exprNode != null){
-            String result = lexemeCurrent.value() + " " + lexemeOp.value();
-            return result + " " + exprNode.evaluate(args);
+            String result = lexemeId.value() + " " + lexemeOp.value() + " " + exprNode.evaluate(args);
+            return result;
         }
         return null;
     }
@@ -30,14 +30,14 @@ public class AssignmentNode implements INode {
         builder.append("AssignmentNode\n");
         tabs++;
         appendTab(builder, tabs);
-        builder.append(lexemeCurrent + "\n");
+        builder.append(lexemeId + "\n");
         appendTab(builder, tabs);
         builder.append(lexemeOp + "\n");
         if (exprNode != null){
             exprNode.buildString(builder, tabs);
         }
         appendTab(builder, tabs);
-        builder.append(lexemeId + "\n");
+        builder.append(lexemeSc + "\n");
     }
 
     private void appendTab (StringBuilder builder, int tabs) {
@@ -46,8 +46,8 @@ public class AssignmentNode implements INode {
         }
     }
 
-    public void setChild(INode childNode) {
-        this.exprNode = childNode;
+    public void setExprNode(INode exprNode) {
+        this.exprNode = exprNode;
     }
 
     public void setLexemeId(Lexeme lexeme) {
@@ -58,8 +58,7 @@ public class AssignmentNode implements INode {
         this.lexemeOp = lexeme;
     }
 
-    public void setLexemeCurrent(Lexeme lexeme) {
-        this.lexemeCurrent = lexeme;
+    public void setLexemeSc(Lexeme lexeme) {
+        this.lexemeSc = lexeme;
     }
-
 }

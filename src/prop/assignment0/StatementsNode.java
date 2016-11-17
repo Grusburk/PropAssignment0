@@ -1,14 +1,24 @@
     package prop.assignment0;
 
-/**
+    import java.util.ArrayList;
+
+    /**
  * Created by matt on 2016-11-02.
  */
 public class StatementsNode implements INode {
 
     private INode assignNode, stmtsNode;
+        private ArrayList<String> results = new ArrayList<>();
 
-    @Override
+        @Override
     public Object evaluate(Object[] args) throws Exception {
+//        if (stmtsNode != null) {
+//            results.add(assignNode.evaluate(args).toString());
+//            stmtsNode.evaluate(args);
+//        } else {
+//            results.add(assignNode.evaluate(args).toString());
+//        }
+//        return results;
         return null;
     }
 
