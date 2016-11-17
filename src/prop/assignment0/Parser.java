@@ -93,13 +93,34 @@ public class Parser implements IParser {
 	private INode constructExprNode() throws IOException, TokenizerException, ParserException {
 		ExpressionNode exprNode = new ExpressionNode();
 		exprNode.setTermNode(constructTermNode());
-		if(tokenizer.current().token() == Token.ADD_OP || tokenizer.current().token() == Token.SUB_OP) {
-			exprNode.setLexeme(tokenizer.current());
-			tokenizer.moveNext();
-			exprNode.setExprNode(constructExprNode());
-		} else if (tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON ){
-			throwParserExcep();
+		switch (tokenizer.current().token()) {
+			case ADD_OP:
+			case SUB_OP:
+				exprNode.setLexeme(tokenizer.current());
+				tokenizer.moveNext();
+				exprNode.setExprNode(constructExprNode());
+				break;
+			case IDENT:
+			case INT_LIT:
+			case MULT_OP:
+			case DIV_OP:
+			case ASSIGN_OP:
+			case LEFT_PAREN:
+			case LEFT_CURLY:
+			case RIGHT_CURLY:
+			case EOF:
+			case NULL:
+				throwParserExcep();
+				break;
+			default:
 		}
+//		if(tokenizer.current().token() == Token.ADD_OP || tokenizer.current().token() == Token.SUB_OP) {
+//			exprNode.setLexeme(tokenizer.current());
+//			tokenizer.moveNext();
+//			exprNode.setExprNode(constructExprNode());
+//		} else if (tokenizer.current().token() != Token.RIGHT_PAREN && tokenizer.current().token() != Token.SEMICOLON ){
+//			throwParserExcep();
+//		}
 		return exprNode;
 	}
 
@@ -129,7 +150,6 @@ public class Parser implements IParser {
 
 	private INode constructFactorNode() throws IOException, TokenizerException, ParserException {
 		FactorNode factorNode = new FactorNode();
-
 		switch (tokenizer.current().token()){
 			case INT_LIT:
 			case IDENT:
